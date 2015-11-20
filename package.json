@@ -1,0 +1,27 @@
+{
+  "name": "myschooldb",
+  "author": {
+    "name": "Pooja Sardesai",
+    "email": "pmsardes@gmail.com"
+  },
+  "version": "1.0.0",
+  "main": "app.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmsardesai/myschooldb.git"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.2.6"
+  },
+  "keywords": [
+    "express",
+    "heroku",
+    "node",
+    "mongodb"
+  ]
+}
