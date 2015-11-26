@@ -1,0 +1,48 @@
+
+// MIXINS //
+@mixin border-radius($arc) {
+	-webkit-border-radius: $arc;
+	   -moz-border-radius: $arc;
+        -ms-border-radius: $arc;
+    		border-radius: $arc;  
+}
+
+
+// MAIN APP CSS //
+.main-app .home {
+	
+}
+
+// UPLOAD CSS //
+.main-app .upload {
+	padding: 10px;
+
+	.file-uploader,
+	.password {
+	    display: block;
+
+	    margin: 10px;
+	    padding: 10px;
+	    font-size: 200%;
+	    @include border-radius(4px);
+	    border: 1px solid black;
+	}
+
+	// there is inline style for the file uploader react component
+	// override it so that it doesn't cause overflow on the page
+	.file-uploader {
+		width: auto !important;
+	}
+
+	.submit {
+		background: #00ABFC;
+		color: white;
+	    font-size: 200%;
+	    margin: 10px;
+	    padding: 10px;
+	    border: 1px solid transparent;
+	    width: 200px;
+
+	    @include border-radius(4px);
+	}
+}

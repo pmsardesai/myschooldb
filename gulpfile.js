@@ -24,7 +24,7 @@ var config = {
 	},
 	watch : {
 		jsx: 'src/**/*.jsx',
-		sass: 'public/styles/*.scss'
+		sass: 'public/styles/app.scss'
 	}
 };
 
