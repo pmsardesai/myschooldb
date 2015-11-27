@@ -1,24 +1,22 @@
 var express = require('express'),
 	path = require('path'),
-	routes = require('./routes');
+	routes = require('./util/routes');
 
 // set express
 var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(path.join(__dirname, 'build')));
 
-routes(app);
+routes(app, __dirname);
 
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
 });
 
-// WEDNESDAY
-// routes in separate file (done)
-// start parsing out csv file (done)
 
 // THURSDAY
-// parse out file completely and add to mongo db
+// parse out file completely and add to mongo db (done)
+// fix file directory structure
 
 // FRIDAY
 // start building interface for searching

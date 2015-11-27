@@ -10,48 +10,53 @@ module.exports = {
 	/*
 	* Insert's student data into the database
 	*/
-	insertStudentInfo: function (mongoDb, data) {
+	insertStudentInfo: function (mongoDB, data) {
 		console.log('[Start] insertStudentInfo');
 
-		var Student = this._createStudenSchema();
+		var Student = this._createStudentSchema();
 
 		// Add student data to database
-		for	(var i = 0; i < data.length; i++) {
-		    var student = data[i];
-		    var year = student[0];
-		    var last = student[1];
-		    var first = student[2];
-		    var middle = student[3];
-		    var alias = student[4];
+		for	(var i = 1; i < data.length; i++) {
+		    var record = data[i];
+		    var year = record[0];
+		    var last = record[1];
+		    var first = record[2];
+		    var middle = record[3];
+		    var alias = record[4];
 
-		    var studentModel = 
+		    var student = 
 		    	this._createStudent(Student, first, last, middle, year, alias);
 
-		    studentModel.save()
+		    student.save()
 		}
-
 		console.log('[End] insertStudentInfo');
 	},
 
-
+	/*
+	* Removes collection.
+	*/
+	dropDb: function(mongoDB) {
+		mongoDB.db.dropDatabase(); // clear database
+	},
 
 	/*
 	* Creates and returns the student schema.
 	*/
-	_createStudenSchema: function() {
-		var Schema = mongoose.Schema;
-
-		var studentSchema = new Schema({
+	_createStudentSchema: function() {
+		var studentSchema = {
 		    first: String,
 		 	last: String,
 		 	middle: String,
 		 	alias: String,
-		    year: Number
-		});
+		    year: String
+		};
 
 		return  mongoose.model('Student', studentSchema);
 	},
 
+	/*
+	* Creates and return student object.
+	*/
 	_createStudent: function(Student, first, last, middle, year, alias) {
 		return new Student({
 			first: first,

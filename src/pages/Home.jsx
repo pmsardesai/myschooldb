@@ -6,7 +6,15 @@ class Home extends React.Component {
 
 		return (
 			<div className={className}>
-				Hello
+				<input type="text"
+					placeholder="First"
+				/>
+				<input type="text"
+					placeholder="Last"
+				/>
+				<input type="submit"
+					value="Submit"
+				/>
 			</div>
 		);
 	}
