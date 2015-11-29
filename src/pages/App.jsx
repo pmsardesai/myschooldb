@@ -9,10 +9,11 @@ class App extends React.Component {
 	}
 
 	render() {
-		const className = 'main-app';
-
 		return (
-			<div className={className}>
+			<div className='main-app'>
+				<div className='main-header'>
+					<div className='title'>People's High School Database</div>
+				</div>
 				{ this.props.children }
 			</div>
 		);

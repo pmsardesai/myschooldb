@@ -27,6 +27,7 @@
       "spaced-comment": 0,
       "react/sort-comp": 0,
       "react/no-unknown-property": 0,
-      "no-mixed-spaces-and-tabs": 0
+      "no-mixed-spaces-and-tabs": 0,
+      "no-console": 0
   	}
 }

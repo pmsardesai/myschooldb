@@ -1,17 +1,176 @@
 
 // MIXINS //
-@mixin border-radius($arc) {
-	-webkit-border-radius: $arc;
-	   -moz-border-radius: $arc;
-        -ms-border-radius: $arc;
-    		border-radius: $arc;  
+@mixin border-radius($br) {
+	-webkit-border-radius: $br;
+	   -moz-border-radius: $br;
+        -ms-border-radius: $br;
+    		border-radius: $br;  
 }
 
+@mixin border-radius-all($tl, $tr, $br, $bl) {
+	-webkit-border-radius: $tl $tr $br $bl;
+	   -moz-border-radius: $tl $tr $br $bl;
+        -ms-border-radius: $tl $tr $br $bl;
+    		border-radius: $tl $tr $br $bl;
+}
 
-// MAIN APP CSS //
+// VARIABLES //
+$headerHeight: 60px;
+$headerHeightPhone: 40px;
+$mainColor: #FF5E5E;
+
+body {
+	margin: 0px;
+	font-size: 16px;
+	background: #FFFBF6;
+	font-family: 'Roboto Condensed';
+}
+
+// HEADER CSS //
+.main-app {
+	.main-header {
+		width: 100%;
+		height: $headerHeight;
+		background: #323232;
+		color: white;
+		font-family:'Bree Serif';
+		text-align: center;
+		font-size: 200%;
+
+		.title {
+			padding-top: 5px;
+		}
+	}
+}
+
+@media (max-width:480px) {
+	.main-app .main-header {
+		font-size: 125%;
+		height: $headerHeightPhone;
+	}
+}
+
+// HOME CSS //
 .main-app .home {
-	
+	display: table;
+	width: 100%;
+
+	.search-container {
+		background: $mainColor;
+		text-align: center;
+		padding: 10px 0px;
+
+		.input {
+			display:inline-block; 
+			vertical-align: middle;
+
+			.top, .middle, .bottom {
+				display: inline-block;
+			}
+
+			.textbox {
+				padding: 10px;
+				font-size: 100%;
+				outline: none;
+				border: 1px solid $mainColor;
+				@include border-radius(4px);
+			}
+
+			.textbox.first {
+				width: 160px;
+				@include border-radius-all(4px, 0px, 0px, 4px);
+			}
+			.textbox.middle,
+			.textbox.last,
+			.textbox.alias {
+				width: 160px;
+				@include border-radius(0px);
+			}
+		
+			.year {
+				outline: none;
+				width: 75px;
+				height: 41px;
+			    border: 1px solid $mainColor;
+			    vertical-align: middle;
+			    margin-top: -2px;
+
+			    @include border-radius(0px);
+			}
+		}
+
+
+		.submit {
+		    font-size: 1.5em;
+   		 	padding: 7px 9px;
+    		background: black;
+    		color: $mainColor;
+		    height: 26px;
+    		vertical-align: middle;
+    		margin: 5px 0px;
+
+    		@include border-radius-all(0px, 4px, 4px, 0px)
+
+    		@media (max-width: 850px) {
+    			margin: 5px;
+	    		@include border-radius(20px);
+    		}
+		}
+	}
 }
+
+@media (min-width:481px) and (max-width: 850px) {
+	.main-app .home .search-container {
+		.input {
+			.textbox.first {
+				@include border-radius-all(4px, 0px, 0px, 0px);
+			}
+			.textbox.middle {
+				@include border-radius-all(0px, 4px, 0px, 0px);
+			}
+			.year {
+				width: 363px;
+				@include border-radius-all(0px, 0px, 4px, 4px);
+				margin-top:0px;
+			}
+		}
+
+		.input > .middle {
+			display: block;
+		}
+	}
+}
+
+@media (max-width:480px) {
+	.main-app .home {
+		.search-container {
+			padding: 5px;
+
+			.input {
+				.textbox {
+					display:block;
+				}
+
+				.textbox.first {
+					@include border-radius-all(4px, 4px, 0px, 0px);
+				}
+
+				.year {
+					width: 181px;
+					margin-top:0px;
+					@include border-radius-all(0px, 0px, 4px, 4px);
+				}
+			}
+			.input > .top,
+			.input > .middle,
+			.input > .bottom {
+				display:block;
+			}
+		}
+	}
+}
+
+@import 'resultcontainer';
 
 // UPLOAD CSS //
 .main-app .upload {
@@ -28,7 +187,7 @@
 	    border: 1px solid black;
 	}
 
-	// there is inline style for the file uploader react component
+	// file uploader react component has an inline width.
 	// override it so that it doesn't cause overflow on the page
 	.file-uploader {
 		width: auto !important;

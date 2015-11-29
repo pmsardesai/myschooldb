@@ -19,12 +19,12 @@ var config = {
 		src: 'src/**/*.jsx'
 	},
 	styles: {
-		src: './public/styles/app.scss',
+		src: './public/styles/*.scss',
 		dest: './build'
 	},
 	watch : {
 		jsx: 'src/**/*.jsx',
-		sass: 'public/styles/app.scss'
+		sass: 'public/styles/*.scss'
 	}
 };
 
@@ -70,8 +70,7 @@ gulp.task('watch', function() {
 	gulp.watch(config.watch.sass, ['build:sass']);
 
 	browserSync.init( {
-		server: config.bundleDir,
-		logFileChanges: false
+		server: config.bundleDir
 	});
 });
 

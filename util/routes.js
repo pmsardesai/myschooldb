@@ -1,10 +1,10 @@
-var path = require('path'),
-	mongoose = require('mongoose'),
+var deferred = require("deferred"),
 	multiparty = require('multiparty'),
+	path = require('path'),
 	xlsx = require('node-xlsx'),
 	MongoWrapper = require('./MongoWrapper');
 
-module.exports = function(app, dir) {
+module.exports = function(app, dir, mongoDB) {
 
 	//~~~~~~~~~~~~ GET ~~~~~~~~~~~~//
 	/*
@@ -17,6 +17,24 @@ module.exports = function(app, dir) {
 	app.get('/', directPage);
 	app.get('/upload', directPage);
 
+	/*
+	* Send results back based on what the user wants
+	*/
+	app.get('/search', function(req, res) {
+		var promise = 
+			MongoWrapper.getStudents(
+				req.query.first, 
+				req.query.middle,
+				req.query.last,
+				req.query.alias, 
+				req.query.year);
+
+		promise.then(function(success) { 
+			res.send(success);
+		}, function(error) {
+			res.send({}); // on error, return empty object
+		})
+	});
 
 	//~~~~~~~~~~~~ POSTS ~~~~~~~~~~~~//
 	/*
@@ -27,16 +45,12 @@ module.exports = function(app, dir) {
 		var form = new multiparty.Form();
 		form.parse(req, function(err, fields, files) {
 			var password = fields.password[0];
-			console.log(process.env.SCHOOLDB_PASS);
 			if (password === process.env.SCHOOLDB_PASS) {
-				var mongoDB = mongoose.connect(process.env.MONGODB_URL).connection;
-				MongoWrapper.dropDb(mongoDB);
-
 				try {
 					var filePath = files.file[0].path;
 					var worksheets = xlsx.parse(filePath);
 					var studentData = worksheets[0].data;
-					MongoWrapper.insertStudentInfo(mongoDB, studentData);
+					MongoWrapper.clearDBandInsertStudents(studentData, mongoDB);
 				} catch (e) {
 					console.log("An error occurred while parsing the file.");
 				}

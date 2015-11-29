@@ -1,0 +1,64 @@
+// RESULT CONTAINER CSS //
+.result-container {
+	.result-container-inner {
+		margin: 0 auto;
+    	max-width: 900px;
+    	font-size: 150%;
+    	padding: 20px;
+	}
+
+
+	// no results
+	.no-results {
+		text-align: center;
+
+    	.fa {
+    		padding-bottom:10px;
+    	}
+	}
+}
+
+@media (max-width: 480px) {
+	.result-container {
+		.result-container-inner{
+			font-size: 125%;
+		}
+		
+	}
+}
+
+
+// RESULT ROW CSS //
+.result-row {
+	display:table;
+	width: 100%;
+    border-bottom: 1px solid #4CBCFD;
+    padding: 10px;
+    box-sizing: border-box;
+
+	.name {
+		display: table-cell;
+	}
+
+	.alias {
+	    color: #9E9E9E;
+    	font-size: 80%;
+	}
+
+	.year {
+		display: table-cell;
+		text-align: right;
+	}
+}
+
+// PHOTOS //
+.photo {
+
+}
+
+.1942 {
+	background-image: url('images/1942.jpeg');
+}
+// .1942 {
+// 	background-image: url('images/1942.jpeg');
+// }
