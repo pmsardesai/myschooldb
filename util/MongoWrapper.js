@@ -28,7 +28,7 @@ module.exports = {
 	/*
 	* Searches for students based on given parameters.
 	*/
-	getStudents: function(first, middle, last, alias, year) {
+	getStudents: function(first, middle, last, year) {
 		console.log('[START] getStudents - Getting students...');
 
 		// make sure there are not empty or null values
@@ -36,9 +36,8 @@ module.exports = {
 		first && (parms.first = this._regex(first));
 		middle && (parms.middle = this._regex(middle));
 		last && (parms.last = this._regex(last));
-		alias && (parms.alias = this._regex(alias));
+		//last && (parms.alias = this._regex(last));
 		year && (parms.year = this._regex(year));
-		//({ "name": { $regex: /m/i } }
 
 		var ret = deferred();
 		if (Object.keys(parms).length > 0) {

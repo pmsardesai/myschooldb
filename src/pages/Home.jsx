@@ -7,24 +7,40 @@ class Home extends React.Component {
 		super(props);
 
 		/*
-		* The state of the menu. It can be 'pinned' or 'unpinned'.
-		* Default: 'unpinned'
+		* The state of this widget.
 		*/
-		this.state = {searchParams: {}, result: {}};
+		this.state = {searchParams: {}, result: [], loaded: false };
 	}
 
-	_onTextChange(event) {
-		if (event.keyCode === 13) {
+	/*
+	* If textbox value changed, clear year field.
+	* If enter pressed, search.
+	*/
+	_onKeyPress(event) {
+		$("#yearBox").val('');
+
+		if (event.charCode === 13) {
 			this._search();
 		}
 	}
 
+	/*
+	* When year changes, clear other fields.
+	*/
+	_onYearChange() {
+		$("#firstBox").val('');
+		$("#middleBox").val('');
+		$("#lastBox").val('');
+	}
+
+	/*
+	* Gets data from MongoDB.
+	*/
 	_search() {
 		let parms = {
 			first: $("#firstBox").val(),
 			middle: $("#middleBox").val(),
 			last: $("#lastBox").val(),
-			alias: $("#aliasBox").val(),
 			year: $("#yearBox").val()
 		};
 
@@ -35,9 +51,9 @@ class Home extends React.Component {
 			data: parms,
 			success: function success(data) {
 				let yearOnly = 
-					!(parms.first || parms.middle || parms.last || parms.alias) && parms.year;
+					!(parms.first || parms.middle || parms.last) && parms.year || '';
 
-				me.setState({ yearOnly: yearOnly, result: data});
+				me.setState({ yearOnly: yearOnly, loaded: true, result: data});
 
 				//console.log(data);
 			},
@@ -47,6 +63,9 @@ class Home extends React.Component {
 		});
 	}
 
+	/*
+	* Render years in the dropdown.
+	*/
 	_renderYearItems() {
 		let years = [];
 		// add an empty option for user to clear out
@@ -75,35 +94,30 @@ class Home extends React.Component {
 								type="text"
 								id="firstBox"
 								placeholder="First"
-								onChange={this._onTextChange.bind(this)}
+								onKeyPress={this._onKeyPress.bind(this)}
 							/>
 							<input className="textbox middle"
 								type="text"
 								id="middleBox"
 								placeholder="Middle"
-								onChange={this._onTextChange.bind(this)}
+								onKeyPress={this._onKeyPress.bind(this)}
 							/>
-						</div>
-						<div className='middle'>
 							<input className="textbox last"
 								type="text"
 								id="lastBox"
 								placeholder="Last"
-								onChange={this._onTextChange.bind(this)}
-							/>
-							<input className="textbox alias"
-								type="text"
-								id="aliasBox"
-								placeholder="Alias"
-								onChange={this._onTextChange.bind(this)}
+								onKeyPress={this._onKeyPress.bind(this)}
 							/>
 						</div>
-						<div className='bottom'>
+						<span className="or">
+							OR
+						</span>
+						<div className="bottom">
 							<select className="year" 
 								type="select" 
 								id="yearBox"
 								defaultValue="empty"
-								onChange={this._onTextChange.bind(this)}
+								onChange={this._onYearChange.bind(this)}
 								>
 								{ this._renderYearItems() }
 							</select>
@@ -114,7 +128,7 @@ class Home extends React.Component {
 					/>
 				</div>
 				
-				<ResultContainer result={this.state.result} yearOnly={this.state.yearOnly} />
+				<ResultContainer result={this.state.result} yearOnly={this.state.yearOnly} loaded={this.state.loaded} />
 			</div>
 		);
 	}

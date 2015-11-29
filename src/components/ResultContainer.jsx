@@ -6,12 +6,17 @@ class ResultContainer extends React.Component {
 		/*
 		* The result set to render
 		*/
-		result: React.PropTypes.object,
+		result: React.PropTypes.array,
 
 		/*
 		* Determines if only the year was specified.
 		*/
 		yearOnly: React.PropTypes.string,
+
+		/*
+		* Determines if this is the first time the page is being loaded
+		*/
+		loaded: React.PropTypes.bool
 	}
 
 	_renderPhoto() {
@@ -30,9 +35,13 @@ class ResultContainer extends React.Component {
 
 		if (result && result.length > 0) {
 			for (let i = 0; i < result.length; i++) {
-				students.push(<ResultRow key={i} student= { result[i] } />);
+				let cssClass = '';
+				if (i === 0) {
+					cssClass = 'first';
+				}
+				students.push(<ResultRow customClass={cssClass} key={i} student= { result[i] } />);
 			}
-		} else {
+		} else if (this.props.loaded) {
 			students.push(
 				<div className='no-results' key="none">
 					<div className="fa fa-meh-o fa-4x"></div>
@@ -45,8 +54,11 @@ class ResultContainer extends React.Component {
 	}
 
 	render() {
+		let cssClass = 'result-container' +
+			(this.props.yearOnly ? ' hide-year' : '');
+
 		return (
-			<div className='result-container'>
+			<div className={cssClass}>
 				<div className='result-container-inner'>
 					{ this._renderPhoto() }
 					{ this._renderStudents() }

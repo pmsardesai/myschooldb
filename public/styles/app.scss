@@ -4,7 +4,14 @@
 	-webkit-border-radius: $br;
 	   -moz-border-radius: $br;
         -ms-border-radius: $br;
-    		border-radius: $br;  
+    		border-radius: $br; 
+
+	// the above doesn't work on select tags on android browser.
+    // do this to fix it.
+	border-top-left-radius: $br;
+	border-top-right-radius: $br;
+	border-bottom-left-radius: $br;
+	border-bottom-right-radius: $br; 
 }
 
 @mixin border-radius-all($tl, $tr, $br, $bl) {
@@ -17,7 +24,9 @@
 // VARIABLES //
 $headerHeight: 60px;
 $headerHeightPhone: 40px;
+$footerHeight: 30px;
 $mainColor: #FF5E5E;
+$blackColor: #323232;
 
 body {
 	margin: 0px;
@@ -26,19 +35,34 @@ body {
 	font-family: 'Roboto Condensed';
 }
 
-// HEADER CSS //
+// HEADER AND FOOTER CSS //
 .main-app {
 	.main-header {
 		width: 100%;
 		height: $headerHeight;
-		background: #323232;
+		background: $blackColor;
 		color: white;
 		font-family:'Bree Serif';
 		text-align: center;
 		font-size: 200%;
 
-		.title {
+		.content {
 			padding-top: 5px;
+		}
+	}
+
+	.footer {
+		position: fixed;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		height: $footerHeight;
+		text-align: center;
+		background: $blackColor;
+		color: white;
+
+		.content {
+			padding-top: 6px;
 		}
 	}
 }
@@ -64,27 +88,22 @@ body {
 			display:inline-block; 
 			vertical-align: middle;
 
-			.top, .middle, .bottom {
+			> .top, > .bottom {
 				display: inline-block;
 			}
 
 			.textbox {
+				width: 160px;
 				padding: 10px;
 				font-size: 100%;
 				outline: none;
 				border: 1px solid $mainColor;
-				@include border-radius(4px);
 			}
+			.textbox.first { @include border-radius-all(4px, 0px, 0px, 4px); }
+			.textbox.last { @include border-radius-all(0px, 4px, 4px, 0px); }
 
-			.textbox.first {
-				width: 160px;
-				@include border-radius-all(4px, 0px, 0px, 4px);
-			}
-			.textbox.middle,
-			.textbox.last,
-			.textbox.alias {
-				width: 160px;
-				@include border-radius(0px);
+			.or {
+				padding: 10px;
 			}
 		
 			.year {
@@ -93,84 +112,67 @@ body {
 				height: 41px;
 			    border: 1px solid $mainColor;
 			    vertical-align: middle;
-			    margin-top: -2px;
 
-			    @include border-radius(0px);
+			    @include border-radius(4px);
 			}
 		}
 
 
 		.submit {
 		    font-size: 1.5em;
-   		 	padding: 7px 9px;
+   		 	padding: 7px 14px;
     		background: black;
     		color: $mainColor;
 		    height: 26px;
     		vertical-align: middle;
-    		margin: 5px 0px;
-
-    		@include border-radius-all(0px, 4px, 4px, 0px)
-
-    		@media (max-width: 850px) {
-    			margin: 5px;
-	    		@include border-radius(20px);
-    		}
+    		margin: 5px 5px 5px 10px;
+    		@include border-radius(20px);
 		}
 	}
 }
 
-@media (min-width:481px) and (max-width: 850px) {
+@media (max-width: 750px) {
 	.main-app .home .search-container {
 		.input {
-			.textbox.first {
-				@include border-radius-all(4px, 0px, 0px, 0px);
+			width: 100%;
+
+			> .top, > .or, > .bottom {
+				display: block;
+				margin: 0px 5px;
 			}
-			.textbox.middle {
-				@include border-radius-all(0px, 4px, 0px, 0px);
+
+			.textbox {
+				width: 33%;
+				box-sizing: border-box;
 			}
+			.textbox.last { width: 34%; }
+
 			.year {
-				width: 363px;
-				@include border-radius-all(0px, 0px, 4px, 4px);
-				margin-top:0px;
+				width: 100%;
+				box-sizing: border-box;
 			}
 		}
-
-		.input > .middle {
+		.submit {
 			display: block;
+		    margin: 10px 5px 0px 5px;
 		}
 	}
 }
 
 @media (max-width:480px) {
-	.main-app .home {
-		.search-container {
-			padding: 5px;
-
-			.input {
-				.textbox {
-					display:block;
-				}
-
-				.textbox.first {
-					@include border-radius-all(4px, 4px, 0px, 0px);
-				}
-
-				.year {
-					width: 181px;
-					margin-top:0px;
-					@include border-radius-all(0px, 0px, 4px, 4px);
-				}
+	.main-app .home .search-container {
+		.input {
+			.textbox,
+			.textbox.last {
+				width: 100%;
 			}
-			.input > .top,
-			.input > .middle,
-			.input > .bottom {
-				display:block;
-			}
+			.textbox.first { @include border-radius-all(4px, 4px, 0px, 0px); }
+			.textbox.last { @include border-radius-all(0px, 0px, 4px, 4px); }
 		}
 	}
 }
 
-@import 'resultcontainer';
+@import 'result-container';
 
 // UPLOAD CSS //
 .main-app .upload {

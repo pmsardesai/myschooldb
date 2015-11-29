@@ -1,12 +1,13 @@
 // RESULT CONTAINER CSS //
 .result-container {
+	padding-bottom: $footerHeight;
+
 	.result-container-inner {
 		margin: 0 auto;
     	max-width: 900px;
     	font-size: 150%;
-    	padding: 20px;
+    	padding: 20px 20px 10px 20px;
 	}
-
 
 	// no results
 	.no-results {
@@ -17,13 +18,20 @@
     	}
 	}
 }
+.result-container.hide-year {
+	.result-container-inner {
+		max-width: 700px;
+		.year {
+			display: none;
+		}
+	}
+}
 
 @media (max-width: 480px) {
 	.result-container {
 		.result-container-inner{
 			font-size: 125%;
 		}
-		
 	}
 }
 
@@ -32,17 +40,16 @@
 .result-row {
 	display:table;
 	width: 100%;
-    border-bottom: 1px solid #4CBCFD;
+    border-top: 1px solid #4CBCFD;
     padding: 10px;
     box-sizing: border-box;
 
 	.name {
 		display: table-cell;
-	}
+	    padding-right: 10px;
 
-	.alias {
-	    color: #9E9E9E;
-    	font-size: 80%;
+		.full { padding-right: 5px; }
+		.alias { color: #9E9E9E; }
 	}
 
 	.year {
@@ -50,6 +57,7 @@
 		text-align: right;
 	}
 }
+.result-row.first { border-top: 0px; }
 
 // PHOTOS //
 .photo {

@@ -26,7 +26,6 @@ module.exports = function(app, dir, mongoDB) {
 				req.query.first, 
 				req.query.middle,
 				req.query.last,
-				req.query.alias, 
 				req.query.year);
 
 		promise.then(function(success) { 

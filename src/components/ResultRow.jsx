@@ -6,6 +6,11 @@ class ResultRow extends React.Component {
 		* The student data object.
 		*/ 
 		student: React.PropTypes.object,
+
+		/*
+		* Custom CSS to be applied to the row
+		*/ 
+		customClass: React.PropTypes.string
 	}
 
 	render() {
@@ -13,12 +18,14 @@ class ResultRow extends React.Component {
 		let name = (student.first ? student.first : '') + ' ' +
 				(student.middle ? student.middle : '') + ' ' +
 				(student.last ? student.last : '');
-		let alias = student.alias ? student.alias : '';
+		let alias = student.alias ? '(' + student.alias + ')' : '';
+
+		let customClass = 'result-row ' + (this.props.customClass || '');
 		return (
-			<div className='result-row'>
+			<div className={customClass}>
 				<div className='name'>
-					<div className='full'>{name}</div>
-					<div className='alias'>{alias}</div>
+					<span className='full'>{name}</span>
+					<span className='alias'>{alias}</span>
 				</div>
 				<div className='year'>{student.year}</div>
 			</div>
