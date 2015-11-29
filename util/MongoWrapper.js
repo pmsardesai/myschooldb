@@ -1,6 +1,7 @@
 var deferred = require("deferred"),
 	mongoose = require("mongoose"),
-	Student = require("./StudentModel");
+	Student = require("./StudentModel"),
+	YearInfo = require("./YearInfo");
 
 /*
 * Wrapper class to insert, delete or modify data in the database.
@@ -42,10 +43,12 @@ module.exports = {
 		var ret = deferred();
 		if (Object.keys(parms).length > 0) {
 			console.log(parms);
-			Student.find(parms, function(err, students) {
-				err && console.log(err);
-				ret.resolve(students);
-			});
+			Student.find(parms)
+				.sort({year: 1, first: 1})
+				.exec(function(err, students) {
+					err && console.log(err);
+					ret.resolve(students);
+				});
 		} else {
 			ret.resolve({});
 		}
@@ -77,9 +80,10 @@ module.exports = {
 		    var first = record[2];
 		    var middle = record[3];
 		    var alias = record[4];
+		    var isPhoto = !!YearInfo[year];
 
 		    var student = 
-		    	this._createStudent(Student, first, last, middle, year, alias);
+		    	this._createStudent(Student, first, last, middle, year, alias, isPhoto);
 
 		    student.save()
 		}
@@ -89,13 +93,14 @@ module.exports = {
 	/*
 	* Creates and return student object.
 	*/
-	_createStudent: function(Student, first, last, middle, year, alias) {
+	_createStudent: function(Student, first, last, middle, year, alias, isPhoto) {
 		return new Student({
 			first: first,
 			last: last,
 			middle: middle,
 			alias: alias,
-			year: year
+			year: year,
+			isPhoto: isPhoto
 		});
 	},
 

@@ -6,7 +6,8 @@ var studentSchema = new Schema({
  	last: String,
  	middle: String,
  	alias: String,
-    year: String
+    year: String,
+    isPhoto: Boolean
 });
 
 module.exports = mongoose.model('Student', studentSchema);   

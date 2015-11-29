@@ -7,6 +7,7 @@ var express = require('express'),
 var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // create db and set routes
 var mongoDB = MongoWrapper._connectToMongoDB();

@@ -61,12 +61,20 @@
 
 // PHOTOS //
 .photo {
+    background-size: contain;
+    background-position: center;
+ 	background-repeat: no-repeat;
+    height: 400px;
 
-}
+    @media (max-width: 600px) { 
+    	height: 300px;
+    }
 
-.1942 {
-	background-image: url('images/1942.jpeg');
+    @media (max-width: 480px) { 
+    	height: 225px;
+    }
+
+    @media (max-width: 350px) { 
+    	height: 175px;
+    }
 }
-// .1942 {
-// 	background-image: url('images/1942.jpeg');
-// }

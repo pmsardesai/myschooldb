@@ -23,7 +23,15 @@ class ResultContainer extends React.Component {
 		let photo = null;
 
 		if (this.props.yearOnly) {
-			photo = <div className={this.props.yearOnly} />;
+			let isPhoto = this.props.result[0].isPhoto;
+
+			if (isPhoto) {
+				// check if year exists first
+				let divStyle = {
+					backgroundImage: 'url(images/' + this.props.yearOnly + '.jpeg)'
+				};
+				photo = <div className='photo' style={divStyle} />;
+			}
 		}
 
 		return photo;
