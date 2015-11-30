@@ -12,7 +12,8 @@
     "url": "https://github.com/pmsardesai/myschooldb.git"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "gulp build:all"
   },
   "dependencies": {
     "babel": "^6.1.18",
