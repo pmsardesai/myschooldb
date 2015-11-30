@@ -63,7 +63,7 @@ module.exports = {
 	* Gets the database.
 	*/
 	_connectToMongoDB: function() {
-		return mongoose.connect(process.env.MONGODB_URL).connection;
+		return mongoose.connect(process.env.MONGOLAB_URI).connection;
 	},
 
 	/*
