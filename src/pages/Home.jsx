@@ -9,7 +9,7 @@ class Home extends React.Component {
 		/*
 		* The state of this widget.
 		*/
-		this.state = {searchParams: {}, result: [], loaded: false };
+		this.state = {searchParams: {}, result: [], loaded: false, useYear: false };
 	}
 
 	/*
@@ -22,6 +22,8 @@ class Home extends React.Component {
 		if (event.charCode === 13) {
 			this._search();
 		}
+
+		this.setState({useYear: false});
 	}
 
 	/*
@@ -31,6 +33,8 @@ class Home extends React.Component {
 		$("#firstBox").val('');
 		$("#middleBox").val('');
 		$("#lastBox").val('');
+
+		this.setState({useYear: ($("#yearBox").val() !== '') });
 	}
 
 	/*
@@ -85,6 +89,8 @@ class Home extends React.Component {
 	}
 
 	render() {
+		let yearPlaceholderCss = "placeholder " + (this.state.useYear ? 'hidden' : '');
+
 		return (
 			<div className='home'>
 				<div className='search-container'>
@@ -113,6 +119,7 @@ class Home extends React.Component {
 							OR
 						</span>
 						<div className="bottom">
+							
 							<select className="year" 
 								type="select" 
 								id="yearBox"
@@ -121,6 +128,7 @@ class Home extends React.Component {
 								>
 								{ this._renderYearItems() }
 							</select>
+							<div className={yearPlaceholderCss}>Year</div>
 						</div>
 					</div>
 					<a className="submit fa fa-2x fa-search"

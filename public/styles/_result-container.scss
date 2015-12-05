@@ -56,8 +56,9 @@
 		display: table-cell;
 		text-align: right;
 	}
+
+	&.first { border-top: 0px; }
 }
-.result-row.first { border-top: 0px; }
 
 // PHOTOS //
 .photo {

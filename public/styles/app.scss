@@ -5,13 +5,6 @@
 	   -moz-border-radius: $br;
         -ms-border-radius: $br;
     		border-radius: $br; 
-
-	// the above doesn't work on select tags on android browser.
-    // do this to fix it.
-	border-top-left-radius: $br;
-	border-top-right-radius: $br;
-	border-bottom-left-radius: $br;
-	border-bottom-right-radius: $br; 
 }
 
 @mixin border-radius-all($tl, $tr, $br, $bl) {
@@ -88,8 +81,26 @@ body {
 			display:inline-block; 
 			vertical-align: middle;
 
-			> .top, > .bottom {
+			> .top {
 				display: inline-block;
+			}
+			> .bottom {
+				display: inline-block;
+				position: relative;
+				background: white;
+				@include border-radius(4px);
+
+				.placeholder {
+				    position: absolute;
+				    top: 10px;
+				    left: 10px;
+				    color: #A3A3A3;
+				    z-index: 0;
+
+				    &.hidden {
+			    		display: none;
+				    }
+				}
 			}
 
 			.textbox {
@@ -98,20 +109,26 @@ body {
 				font-size: 100%;
 				outline: none;
 				border: 1px solid $mainColor;
+
+				&.first { @include border-radius-all(4px, 0px, 0px, 4px); }
+				&.last { @include border-radius-all(0px, 4px, 4px, 0px); }
 			}
-			.textbox.first { @include border-radius-all(4px, 0px, 0px, 4px); }
-			.textbox.last { @include border-radius-all(0px, 4px, 4px, 0px); }
 
 			.or {
 				padding: 10px;
 			}
 		
 			.year {
+				font-size: 100%;
 				outline: none;
 				width: 75px;
-				height: 41px;
-			    border: 1px solid $mainColor;
+				height: 40px;
+			    border: 0;
 			    vertical-align: middle;
+			    padding: 7px;
+			    position: relative;
+    			z-index: 1;
+    			background: transparent;
 
 			    @include border-radius(4px);
 			}
@@ -126,6 +143,7 @@ body {
 		    height: 26px;
     		vertical-align: middle;
     		margin: 5px 5px 5px 10px;
+    		cursor: pointer;
     		@include border-radius(20px);
 		}
 	}
@@ -144,8 +162,9 @@ body {
 			.textbox {
 				width: 33%;
 				box-sizing: border-box;
+
+				&.last { width: 34%; }
 			}
-			.textbox.last { width: 34%; }
 
 			.year {
 				width: 100%;
@@ -162,12 +181,12 @@ body {
 @media (max-width:480px) {
 	.main-app .home .search-container {
 		.input {
-			.textbox,
-			.textbox.last {
+			.textbox {
 				width: 100%;
+				&.last { width: 100%; }
+				&.first { @include border-radius-all(4px, 4px, 0px, 0px); }
+				&.last { @include border-radius-all(0px, 0px, 4px, 4px); }
 			}
-			.textbox.first { @include border-radius-all(4px, 4px, 0px, 0px); }
-			.textbox.last { @include border-radius-all(0px, 0px, 4px, 4px); }
 		}
 	}
 }
