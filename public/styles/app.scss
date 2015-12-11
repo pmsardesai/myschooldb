@@ -39,8 +39,22 @@ body {
 		text-align: center;
 		font-size: 200%;
 
+		.logo {
+			width: 50px;
+			height: 45px;
+
+			display: inline-block;
+			background-image: url('images/logo.png');
+		    background-size: cover;
+		    margin: -11px 10px;
+
+		    &.left{ margin-left: 0; }
+		    &.right { margin-right: 0px; }
+		}
+
 		.content {
 			padding-top: 5px;
+			display: inline-block;
 		}
 	}
 
@@ -60,10 +74,53 @@ body {
 	}
 }
 
+@media (max-width:575px) {
+	.main-app .main-header {
+		font-size: 160%;
+
+		.logo {
+			width: 45px;
+			height: 40px;
+		}
+
+		.content {
+			padding-top: 10px;
+		}
+	}
+}
+
 @media (max-width:480px) {
 	.main-app .main-header {
 		font-size: 125%;
 		height: $headerHeightPhone;
+
+		.logo {
+			width: 30px;
+			height: 27px;
+    		margin: -6px 10px;
+		}
+
+		.content {
+			padding-top: 5px;
+		}
+	}
+}
+
+
+@media (max-width:375px) {
+	.main-app .main-header {
+		font-size: 100%;
+		height: $headerHeightPhone;
+
+		.logo {
+			width: 25px;
+			height: 23px;
+    		margin: -6px 10px;
+		}
+
+		.content {
+			padding-top: 8px;
+		}
 	}
 }
 

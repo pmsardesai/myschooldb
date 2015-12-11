@@ -12,7 +12,9 @@ class App extends React.Component {
 		return (
 			<div className='main-app'>
 				<div className='main-header'>
+					<div className='logo left'></div>
 					<div className='content'>People's High School Database</div>
+					<div className='logo right'></div>
 				</div>
 				{ this.props.children }
 				<div className='footer'>
