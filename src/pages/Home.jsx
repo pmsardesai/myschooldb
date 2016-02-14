@@ -29,12 +29,19 @@ class Home extends React.Component {
 	/*
 	* When year changes, clear other fields.
 	*/
-	_onYearChange() {
+	_onYearChange(year) {
 		$("#firstBox").val('');
 		$("#middleBox").val('');
 		$("#lastBox").val('');
 
-		this.setState({useYear: ($("#yearBox").val() !== '') });
+		if (year) {
+			$("#yearBox").val(year)
+			this.setState({useYear: !!year });
+			this._search();
+		} else {
+			year = $("#yearBox").val();
+			this.setState({useYear: (year !== '') });
+		}
 	}
 
 	/*
@@ -58,8 +65,6 @@ class Home extends React.Component {
 					!(parms.first || parms.middle || parms.last) && parms.year || '';
 
 				me.setState({ yearOnly: yearOnly, loaded: true, result: data});
-
-				//console.log(data);
 			},
 			error: function error(xhr, status, err) {
 				console.error(err);
@@ -136,7 +141,11 @@ class Home extends React.Component {
 					/>
 				</div>
 				
-				<ResultContainer result={this.state.result} yearOnly={this.state.yearOnly} loaded={this.state.loaded} />
+				<ResultContainer result={this.state.result} 
+								 yearOnly={this.state.yearOnly} 
+				 				 loaded={this.state.loaded}
+				 				 onYearClick={this._onYearChange.bind(this)} />
+				 				
 			</div>
 		);
 	}

@@ -16,7 +16,17 @@ class ResultContainer extends React.Component {
 		/*
 		* Determines if this is the first time the page is being loaded
 		*/
-		loaded: React.PropTypes.bool
+		loaded: React.PropTypes.bool,
+
+		/*
+		* If year is clicked in ResultRow, pass the year back to 
+		* home page so that it loads students from that year.
+		*/
+		onYearClick: React.PropTypes.func
+	}
+
+	_onYearClick(student) {
+		this.props.onYearClick(student.year);
 	}
 
 	_renderPhoto() {
@@ -47,7 +57,9 @@ class ResultContainer extends React.Component {
 				if (i === 0) {
 					cssClass = 'first';
 				}
-				students.push(<ResultRow customClass={cssClass} key={i} student= { result[i] } />);
+				students.push(<ResultRow customClass={cssClass} 
+					onYearClick={this._onYearClick.bind(this, result[i])}
+					key={i} student= { result[i] } />);
 			}
 		} else if (this.props.loaded) {
 			students.push(

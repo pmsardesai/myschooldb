@@ -55,6 +55,14 @@
 	.year {
 		display: table-cell;
 		text-align: right;
+		color: #00abfc;
+
+		.text {
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 
 	&.first { border-top: 0px; }

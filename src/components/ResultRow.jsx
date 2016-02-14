@@ -10,7 +10,20 @@ class ResultRow extends React.Component {
 		/*
 		* Custom CSS to be applied to the row
 		*/ 
-		customClass: React.PropTypes.string
+		customClass: React.PropTypes.string,
+
+		/*
+		* If year is clicked in ResultRow, pass the year back to 
+		* home page so that it loads students from that year.
+		*/
+		onYearClick: React.PropTypes.func
+	}
+
+	/*
+	* If year is clicked, load students from that year.
+	*/
+	_onYearClick() {
+		this.props.onYearClick();
 	}
 
 	render() {
@@ -27,7 +40,11 @@ class ResultRow extends React.Component {
 					<span className='full'>{name}</span>
 					<span className='alias'>{alias}</span>
 				</div>
-				<div className='year'>{student.year}</div>
+				<div className='year'>
+					<span className='text' 
+						 onClick={this._onYearClick.bind(this)}>{student.year}</span>
+				</div> 
+					 
 			</div>
 		);
 	}
