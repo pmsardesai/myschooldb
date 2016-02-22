@@ -34,14 +34,15 @@ class Home extends React.Component {
 		$("#middleBox").val('');
 		$("#lastBox").val('');
 
-		if (year) {
-			$("#yearBox").val(year)
-			this.setState({useYear: !!year });
-			this._search();
-		} else {
+		if (year.currentTarget) {
 			year = $("#yearBox").val();
 			this.setState({useYear: (year !== '') });
+		} else {
+			$("#yearBox").val(year);
+			this.setState({useYear: !!year });
 		}
+
+		this._search();
 	}
 
 	/*
